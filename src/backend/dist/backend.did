@@ -1,0 +1,161 @@
+type TransformationOutput = 
+ record {
+   body: blob;
+   headers: vec HttpHeader;
+   status: nat;
+ };
+type TransformationInput = 
+ record {
+   context: blob;
+   response: HttpRequestResult;
+ };
+type Timestamp = int;
+type SolutionMapping = 
+ record {
+   description: text;
+   instruments: vec text;
+   mokModel: text;
+   painArea: text;
+ };
+type Slide = 
+ record {
+   bulletPoints: vec text;
+   slideTitle: text;
+ };
+type SessionMessage = 
+ record {
+   content: text;
+   role: text;
+ };
+type SearchResult = 
+ record {
+   id: text;
+   kind: text;
+   score: nat;
+   snippet: text;
+   title: text;
+ };
+type Schematic = 
+ record {
+   asciiDiagram: text;
+   componentList: vec text;
+   notes: text;
+   title: text;
+ };
+type ProductSpec = 
+ record {
+   adcBits: nat;
+   bandwidth: text;
+   channels: nat;
+   connectivity: text;
+   formFactor: text;
+   sampleRate: text;
+   voltage: text;
+ };
+type Product = 
+ record {
+   id: text;
+   instruments: vec text;
+   name: text;
+   spec: ProductSpec;
+   tagline: text;
+   useCases: vec text;
+ };
+type Presentation = 
+ record {
+   slides: vec Slide;
+   talkingPointsSummary: text;
+   title: text;
+ };
+type IndustryVertical = 
+ record {
+   id: text;
+   name: text;
+   overview: text;
+   painAreas: vec text;
+   solutionMappings: vec SolutionMapping;
+ };
+type HttpRequestResult = 
+ record {
+   body: blob;
+   headers: vec HttpHeader;
+   status: nat;
+ };
+type HttpHeader = 
+ record {
+   name: text;
+   value: text;
+ };
+type GeneratedMaterial = 
+ record {
+   content: text;
+   createdAt: Timestamp;
+   id: text;
+   kind: text;
+   title: text;
+ };
+type CourseOutline = 
+ record {
+   fullMarkdown: text;
+   modules: vec CourseModule;
+   title: text;
+ };
+type CourseModule = 
+ record {
+   labExercises: vec text;
+   moduleName: text;
+   objectives: vec text;
+ };
+type ChatSession = 
+ record {
+   createdAt: Timestamp;
+   id: text;
+   messages: vec ChatMessage;
+   updatedAt: Timestamp;
+ };
+type ChatMessage = 
+ record {
+   content: text;
+   role: text;
+   timestamp: Timestamp;
+ };
+type AdvisorResponse = 
+ record {
+   nextSteps: vec text;
+   rawResponse: text;
+   recommendedInstruments: vec text;
+   recommendedProduct: text;
+   useCaseSummary: text;
+ };
+type AdvisorContext = 
+ record {
+   product: opt text;
+   sessionHistory: opt vec SessionMessage;
+   vertical: opt text;
+ };
+service : {
+  appendMessage: (sessionId: text, role: text, content: text) ->
+   (ChatSession);
+  deleteSession: (sessionId: text) -> ();
+  generateCourse: (vertical: text, product: opt text) -> (CourseOutline);
+  generatePresentation: (vertical: text, product: text) -> (Presentation);
+  generateSchematic: (useCaseDescription: text) -> (Schematic);
+  getAdvisorAdvice: (userQuery: text, context: AdvisorContext) ->
+   (AdvisorResponse);
+  getExtendedThinking: () -> (bool) query;
+  getMaterial: (id: text) -> (opt GeneratedMaterial) query;
+  getModel: () -> (text) query;
+  getProduct: (id: text) -> (opt Product) query;
+  getSession: (sessionId: text) -> (opt ChatSession) query;
+  getVertical: (id: text) -> (opt IndustryVertical) query;
+  listMaterials: () -> (vec GeneratedMaterial) query;
+  listProducts: () -> (vec Product) query;
+  listVerticals: () -> (vec IndustryVertical) query;
+  saveMaterial: (kind: text, title: text, content: text) ->
+   (GeneratedMaterial);
+  search: (term: text) -> (vec SearchResult) query;
+  setApiKey: (key: text) -> ();
+  setExtendedThinking: (enabled: bool) -> ();
+  setModel: (model: text) -> ();
+  transform: (input: TransformationInput) -> (TransformationOutput) query;
+}

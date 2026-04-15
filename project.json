@@ -1,0 +1,25 @@
+{
+  "overview": "A sales enablement knowledge platform for Liquid Instruments Moku products. Before approaching any company, get trained on their domain, pain areas, and how Moku Go/Pro/Delta solve their problems — then generate courses, schematics, and presentation outlines on demand via an AI advisor.",
+  "features": [
+    "AI chat advisor for domain-specific Moku solution recommendations",
+    "Product knowledge base for Moku Go, Moku Pro, and Moku Delta",
+    "Industry vertical profiles with pain areas and solution mappings",
+    "Generate training course outlines for any domain",
+    "Generate system schematics and signal flow diagrams",
+    "Generate executive presentation outlines",
+    "Full-text search across products, verticals, and use cases",
+    "Dashboard with quick-access tiles for top verticals and recent queries"
+  ],
+  "category": "productivity",
+  "tags": [
+    "sales-enablement",
+    "knowledge-base",
+    "ai-advisor",
+    "liquid-instruments",
+    "moku",
+    "aerospace",
+    "defense",
+    "telecom"
+  ],
+  "last_updated": "2026-04-14T11:46:27.536Z"
+}
